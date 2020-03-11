@@ -7,7 +7,7 @@ class Job extends React.Component {
   }
 
   render() {
-    console.log(this.state.jobData);
+    // console.log(this.state.jobData);
     return (
       <>
         <tr>

@@ -100,7 +100,7 @@ class CreateJob extends React.Component {
         <Form>
           {/* CLIENT entry */}
           <FormGroup>
-            <FormLabel>Title</FormLabel>
+            <FormLabel>Client</FormLabel>
             <FormControl id="title" type="text" placeholder="Title" onChange={this.handlePostTitle}/>
           </FormGroup>
           

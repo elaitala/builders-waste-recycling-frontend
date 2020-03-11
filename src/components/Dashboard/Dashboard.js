@@ -1,8 +1,58 @@
 import React from 'react';
 import './Dashboard.css';
+import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 
 class Dashboard extends React.Component {
+
+  state = {
+    id: "",
+    jobName: [],
+    info: [],
+    status: "",
+    littleT: 0,
+    bigT: 0,
+    totalTen: 163,
+    totalFifteen: 59
+  }
+
+  componentDidMount = () => {
+    // const PORTDB = process.env.PORTDB;
+    console.log("Getting number of JOBS...")
+    axios.get(`http://localhost:4000/api/v1/jobs`)
+      .then(res=> {
+        console.log('data',res.data);
+        this.setState({
+          info:res.data
+        }, () => {
+          this.trailerCount()
+        })
+        
+      })
+      .catch( err =>
+        console.log(err)
+      )
+  }
+  // Counts TRAILERS of each kind in the field
+  trailerCount = () => {
+    let data = this.state.info
+    let littleT = 0;
+    let bigT = 0;
+    for (let i=0; i<data.length; i++){
+      if(data[i].trailer === 10){
+        littleT++;
+        // console.log('Adding Little')
+      } else if(data[i].trailer === 15){
+        bigT++;
+        // console.log('Adding Big');
+      }
+      if(i === data.length-1){
+        this.setState({
+          bigT, littleT
+        })
+      }
+    } 
+  }
 
   render () {
     return (
@@ -20,21 +70,21 @@ class Dashboard extends React.Component {
             <tbody>
               <tr>
                 <td>10 yd</td>
-                <td>150</td>
-                <td>140</td>
-                <td>10</td>
+                <td>{this.state.totalTen}</td>
+                <td>{this.state.littleT}</td>
+                <td>{this.state.totalTen-this.state.littleT}</td>
               </tr>
               <tr>
                 <td>15 yd</td>
-                <td>60</td>
-                <td>55</td>
-                <td>5</td>
+                <td>{this.state.totalFifteen}</td>
+                <td>{this.state.bigT}</td>
+                <td>{this.state.totalFifteen-this.state.bigT}</td>
               </tr>
               <tr>
                 <td>Total</td>
-                <td>210</td>
-                <td>195</td>
-                <td>15</td>
+                <td>{this.state.totalTen+this.state.totalFifteen}</td>
+                <td>{this.state.littleT+this.state.bigT}</td>
+                <td>{this.state.totalTen-this.state.littleT+this.state.totalFifteen-this.state.bigT}</td>
               </tr>
             </tbody>
           </Table>
