@@ -12,13 +12,14 @@ class Dashboard extends React.Component {
     status: "",
     littleT: 0,
     bigT: 0,
+    // Hardcoded number of TRAILERS
     totalTen: 163,
     totalFifteen: 59
   }
 
   componentDidMount = () => {
     // const PORTDB = process.env.PORTDB;
-    console.log("Getting number of JOBS...")
+    // console.log("Getting number of JOBS...")
     axios.get(`http://localhost:4000/api/v1/jobs`)
       .then(res=> {
         // console.log('data',res.data);

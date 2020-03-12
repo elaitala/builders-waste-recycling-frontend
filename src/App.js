@@ -4,6 +4,7 @@ import './App.css';
 import { Navbar, Modal } from 'react-bootstrap';
 import Dashboard from './components/Dashboard/Dashboard'
 import CreateJob from './components/Job/CreateJob/CreateJob'
+import JobDetail from './components/Job/JobDetail/JobDetail'
 import JobList from './components/Job/JobList/JobList'
 
 import './App.css';
@@ -31,6 +32,14 @@ handleShow() {
 
 handleClose() {
   this.setState({ createjobshow: false });
+}
+
+handleJobShow() {
+  this.setState({ jobdetailshow: true });
+}
+
+handleJobClose() {
+  this.setState({ jobdetailshow: false });
 }
 
   render() {
@@ -62,14 +71,23 @@ handleClose() {
         {/* <h4>Trailers in the field:</h4> */}
         <JobList />
         <Modal show={this.state.createjobshow} onHide={this.handleClose}>
-            <Modal.Header closeButton>
-            <h2>New Job</h2>
-            </Modal.Header>
-            <Modal.Body>
-              <CreateJob handleClose={this.handleClose}/>
-              <hr />
-            </Modal.Body>
-          </Modal>
+          <Modal.Header closeButton>
+          <h2>New Job</h2>
+          </Modal.Header>
+          <Modal.Body>
+            <CreateJob handleClose={this.handleClose}/>
+            <hr />
+          </Modal.Body>
+        </Modal>
+        {/* <Modal show={this.state.jobdetailshow} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+          <h2>Job Detail</h2>
+          </Modal.Header>
+          <Modal.Body>
+            <JobDetail handleClose={this.handleClose}/>
+            <hr />
+          </Modal.Body>
+        </Modal> */}
           
 
       </>

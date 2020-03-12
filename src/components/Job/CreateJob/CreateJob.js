@@ -23,37 +23,20 @@ class CreateJob extends React.Component {
     price: '',
   }
   
-  // Updates BUILDER
+  // Updates the STATE of the form
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
   
-  // Updates ADDRESS
-  // handleAddress = event => {
-  //   let value = event.target.value;
-  //   this.setState({
-  //     userData: {
-  //       ...this.state.jobData,
-  //       address: value
-  //     }
-  //   });
-  // }
-
-  
   handleSubmit = event => {
     // const PORT = process.env.PORTDB;
     event.preventDefault();
-    console.log('Setting state...');
-    // this.handleBuilders();
     
     console.log('Creating JOB...');
-    console.log('bodytosend', this.state);
-    // document.getElementById('location').disabled = "null";
-    // document.getElementById('client').disabled = "null";
-    // document.getElementById('address').disabled = "null";
-    // document.getElementById('picture').disabled = "null";
+    console.log('Job Data:', this.state);
+    
     axios.post(`http://localhost:4000/api/v1/jobs/create`, this.state )
       .then(res => {
         console.log('Inserting JOB into DB...')

@@ -1,21 +1,94 @@
 import React from 'react';
+import axios from 'axios';
+import { Modal } from 'react-bootstrap'
 import './Job.css';
+// import JobDetail from './JobDetail/JobDetail'
 
 class Job extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  
+    this.state = {
+      jobdetailshow: false,
+      // signupshow:false,
+      currentCityPost:[],
+      cities:[]
+    };
+  }
+  
   state = {
     jobData: this.props.job
   }
 
+  handleShow() {
+    this.setState({ jobdetailshow: true });
+  }
+  
+  handleClose() {
+    this.setState({ jobdetailshow: false });
+  }
+  
+  handlePickupReturn = () => {
+    console.log('Pickup Return...')
+  }
+  
+  handlePickupOnly = () => {
+    console.log('Pickup Only...');
+    axios.delete(`http://localhost:4000/api/v1/jobs/${this.props.job._id}`)
+      .then(res => {
+        console.log(res)
+        // this.setState({
+        //   deleted: true
+        })
+      .catch(err => {
+        console.log('DELETE failed...')
+        console.log(err.response)
+      })
+  }
+
+  showJobDetail = () => {
+    console.log('Show JOB...')
+    console.log(this.props.job._id)
+    // handleJobShow()
+  }
+  
   render() {
     // console.log(this.state.jobData);
+    // const { detail } = this.props.job
     return (
       <>
-        <tr>
+        {/* <tr onClick={this.showJobDetail}> */}
+        <tr onClick={this.handleShow}>
           <td>{this.props.job.client}</td>
           <td>{this.props.job.address}</td>
           <td>{this.props.job.city}</td>
           <td>{this.props.job.trailer}</td>
         </tr>
+        <Modal show={this.state.jobdetailshow} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <h2>Job Detail</h2>
+          </Modal.Header>
+          <Modal.Body>
+            {/* <JobDetail detail={this.props.job}/> */}
+            <p>{this.props.job.client}</p>
+            <p>{this.props.job.location}</p>
+            <p>{this.props.job.address}</p>
+            <p>{this.props.job.city}</p>
+            <hr />
+            <p>Job Type: {this.props.job.type}</p>
+            <p>Contact: {this.props.job.siteContact}</p>
+            <p>{this.props.job.trailer} yd trailer</p>
+            <hr />
+            <p>Price: ${this.props.job.price}</p>
+            <p>Paid: {this.props.job.paid}</p>
+            <p>{this.props.job.createdAt}</p>
+            <hr />
+            <button id="pickupreturn" type="pickup-return-button" className="btn btn-success mt-1 btn-block" onClick={this.handlePickupReturn}>Pickup Return</button>
+            <button id="pickuponly" type="pickup-only-button" className="btn btn-danger mt-1 btn-block" onClick={this.handlePickupOnly}>Pickup Only</button>
+          </Modal.Body>
+        </Modal>
       </>
     )
   }
