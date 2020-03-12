@@ -1,6 +1,6 @@
 import React from 'react';
 import './Dashboard.css';
-import axios from 'axios';
+// import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 
 class Dashboard extends React.Component {
@@ -10,51 +10,63 @@ class Dashboard extends React.Component {
     jobName: [],
     info: [],
     status: "",
-    littleT: 0,
-    bigT: 0,
+    trailerTen: 0,
+    trailerFifteen: 0,
     // Hardcoded number of TRAILERS
     totalTen: 163,
-    totalFifteen: 59
+    totalFifteen: 59,
+    jobData: this.props.jobData
   }
 
   componentDidMount = () => {
-    // const PORTDB = process.env.PORTDB;
-    // console.log("Getting number of JOBS...")
-    axios.get(`http://localhost:4000/api/v1/jobs`)
-      .then(res=> {
-        // console.log('data',res.data);
-        this.setState({
-          info:res.data
-        }, () => {
+
+  //   // const PORTDB = process.env.PORTDB;
+  //   // console.log("Getting number of JOBS...")
+  //   axios.get(`http://localhost:4000/api/v1/jobs`)
+  //     .then(res=> {
+  //       // console.log('data',res.data);
+        // this.setState({
+          
+        // }, () => {
           this.trailerCount()
-        })
+        // })
         
-      })
-      .catch( err =>
-        console.log(err)
-      )
+  //     })
+  //     .catch( err =>
+  //       console.log(err)
+  //     )
   }
+
+  componentDidUpdate = (prevProps) => {
+    if(prevProps.jobData !== this.props.jobData){
+      this.trailerCount();
+    }
+  }
+
   // Counts TRAILERS of each kind in the field
   trailerCount = () => {
-    let data = this.state.info
-    let littleT = 0;
-    let bigT = 0;
+    console.log('TrailerCount data', this.props.jobData);
+    // let data = this.state.info
+    let data = this.props.jobData;
+    console.log('DATA', data)
+    let trailerTen = 0;
+    let trailerFifteen = 0;
     for (let i=0; i<data.length; i++){
       if(data[i].trailer === 10){
-        littleT++;
+        trailerTen++;
         // console.log('Adding Little')
       } else if(data[i].trailer === 15){
-        bigT++;
+        trailerFifteen++;
         // console.log('Adding Big');
       }
       if(i === data.length-1){
         this.setState({
-          bigT, littleT
+          trailerFifteen, trailerTen
         })
       }
     } 
   }
-
+  
   render () {
     return (
       <>
@@ -72,20 +84,20 @@ class Dashboard extends React.Component {
               <tr>
                 <td>10 yd</td>
                 <td>{this.state.totalTen}</td>
-                <td>{this.state.littleT}</td>
-                <td>{this.state.totalTen-this.state.littleT}</td>
+                <td>{this.state.trailerTen}</td>
+                <td>{this.state.totalTen-this.state.trailerTen}</td>
               </tr>
               <tr>
                 <td>15 yd</td>
                 <td>{this.state.totalFifteen}</td>
-                <td>{this.state.bigT}</td>
-                <td>{this.state.totalFifteen-this.state.bigT}</td>
+                <td>{this.state.trailerFifteen}</td>
+                <td>{this.state.totalFifteen-this.state.trailerFifteen}</td>
               </tr>
               <tr>
                 <td>Total</td>
                 <td>{this.state.totalTen+this.state.totalFifteen}</td>
-                <td>{this.state.littleT+this.state.bigT}</td>
-                <td>{this.state.totalTen-this.state.littleT+this.state.totalFifteen-this.state.bigT}</td>
+                <td>{this.state.trailerTen+this.state.trailerFifteen}</td>
+                <td>{this.state.totalTen-this.state.trailerTen+this.state.totalFifteen-this.state.trailerFifteen}</td>
               </tr>
             </tbody>
           </Table>
