@@ -1,8 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Navbar from 'react-bootstrap/Navbar';
+import { Navbar, Modal } from 'react-bootstrap';
 import Dashboard from './components/Dashboard/Dashboard'
+import CreateJob from './components/Job/CreateJob/CreateJob'
 import JobList from './components/Job/JobList/JobList'
 
 import './App.css';
@@ -10,6 +11,28 @@ import './App.css';
 
 
 class App extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  
+    this.state = {
+      createjobshow: false,
+      // signupshow:false,
+      currentCityPost:[],
+      cities:[]
+    };
+  }
+
+// Handle OPEN and CLOSE of CREATE JOB
+handleShow() {
+  this.setState({ createjobshow: true });
+}
+
+handleClose() {
+  this.setState({ createjobshow: false });
+}
+
   render() {
     return (
       <>
@@ -27,7 +50,7 @@ class App extends React.Component {
         </Navbar>
 
         {/* <h4>Job Dashboard:</h4> */}
-        <button id="createjobbtn" type="create-job-button" className="btn btn-success mt-1 btn-block" onClick={this.handleCreate}>New Job</button>
+        <button id="createjobbtn" type="create-job-button" className="btn btn-success mt-1 btn-block" onClick={this.handleShow}>New Job</button>
         
         {/* <button id="pickupreturnbtn" type="pickup-return-button" className="btn btn-primary mt-1 btn-block" onClick={this.handlePickupReturn}>Pickup Return</button>
         
@@ -38,6 +61,15 @@ class App extends React.Component {
         {/* <br/> */}
         {/* <h4>Trailers in the field:</h4> */}
         <JobList />
+        <Modal show={this.state.createjobshow} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+            <h2>New Job</h2>
+            </Modal.Header>
+            <Modal.Body>
+              <CreateJob handleClose={this.handleClose}/>
+              <hr />
+            </Modal.Body>
+          </Modal>
           
 
       </>

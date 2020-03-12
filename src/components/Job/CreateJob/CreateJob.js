@@ -11,76 +11,50 @@ import {  Button,
 class CreateJob extends React.Component {
   state = {
     
-    jobData: {},
+    // jobData: {},
+    jobName: '',
+    client: '',
+    location: '',
+    address: '',
+    city: '',
+    type: '',
+    siteContact: '',
+    trailer: '',
+    price: '',
   }
-  // AXIOS call for all CITIES
-  // componentDidMount = () => {
-  //   const PORT = process.env.PORT;
-  //   axios.get(`http://localhost:${PORT}/api/v1/location`)
-  //     .then(res=> {
-  //       console.log(res.data.AllLocation)
-  //       this.setState({
-  //         cities:res.data.AllLocation
-  //       })
-  //     })
-  //   }
   
-  // Updates JOB CITY
-  // handleCity = (e) => {
-  //   console.log(e.target.value)
-  //   let index = e.nativeEvent.target.selectedIndex;
+  // Updates BUILDER
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+  
+  // Updates ADDRESS
+  // handleAddress = event => {
+  //   let value = event.target.value;
   //   this.setState({
-  //     jobData: {
+  //     userData: {
   //       ...this.state.jobData,
-  //       location: {
-  //         _id: e.target.value,
-  //         city: e.nativeEvent.target[index].text
-  //       }
+  //       address: value
   //     }
-  //   })
+  //   });
   // }
-  
-  // Updates POST TITLE
-  handlePostTitle = event => {
-    let value = event.target.value;
-    this.setState({
-      userData: {
-        ...this.state.userData,
-        title: value
-      }
-    });
-  }
-  
-  // Updates POST BODY
-  handlePostContent = event => {
-    let value = event.target.value;
-    this.setState({
-      userData: {
-        ...this.state.userData,
-        content: value
-      }
-    });
-  }
 
-  handleImg = event => {
-    let value = event.target.value;
-    this.setState({
-      userData: {
-        ...this.state.userData,
-        img: value
-      }
-    })
-  }
+  
   handleSubmit = event => {
     // const PORT = process.env.PORTDB;
     event.preventDefault();
+    console.log('Setting state...');
+    // this.handleBuilders();
+    
     console.log('Creating JOB...');
-    console.log('bodytosend', this.state.jobData);
+    console.log('bodytosend', this.state);
     // document.getElementById('location').disabled = "null";
-    document.getElementById('title').disabled = "null";
-    document.getElementById('content').disabled = "null";
+    // document.getElementById('client').disabled = "null";
+    // document.getElementById('address').disabled = "null";
     // document.getElementById('picture').disabled = "null";
-    axios.post(`http://localhost:4000/api/v1/jobs/create`, this.state.userData )
+    axios.post(`http://localhost:4000/api/v1/jobs/create`, this.state )
       .then(res => {
         console.log('Inserting JOB into DB...')
         console.log(res)
@@ -93,33 +67,69 @@ class CreateJob extends React.Component {
       });
   };
     render() {
-    console.log('Rendering new JOB');
+    console.log('Rendering ADD NEW JOB');
     return (
       <>
       <div>
         <Form>
+          {/* JOB NAME entry */}
+          <FormGroup>
+            {/* <FormLabel>Builder</FormLabel> */}
+            <FormControl name="jobName" type="text" placeholder="Job Name" onChange={this.handleChange}/>
+          </FormGroup>
+
           {/* CLIENT entry */}
           <FormGroup>
-            <FormLabel>Client</FormLabel>
-            <FormControl id="title" type="text" placeholder="Title" onChange={this.handlePostTitle}/>
+            {/* <FormLabel>Builder</FormLabel> */}
+            <FormControl name="client" type="text" placeholder="Builder" onChange={this.handleChange}/>
+          </FormGroup>
+          
+          {/* LOCATION */}
+          <FormGroup>
+            {/* <FormLabel>Location</FormLabel> */}
+            <FormControl name="location" type="text" placeholder="Location" onChange={this.handleChange}/>
           </FormGroup>
           
           {/* ADDRESS */}
           <FormGroup>
-            <FormLabel>Post</FormLabel>
-            <FormControl id="content" as="textarea" rows="5" placeholder="Adventure goes here" onChange={this.handlePostContent}/>
+            {/* <FormLabel>Address</FormLabel> */}
+            <FormControl name="address" type="text" placeholder="Address" onChange={this.handleChange}/>
           </FormGroup>
           
-          {/* Add a PICTURE functionality */}
+          {/* CITY */}
           <FormGroup>
-            <FormLabel>City Picture</FormLabel>
-            <FormControl id="img" type="text" placeholder="photo url" onChange={this.handleImg}/>
+            {/* <FormLabel>City</FormLabel> */}
+            <FormControl name="city" type="text" placeholder="City" onChange={this.handleChange}/>
+          </FormGroup>
+         
+          {/* TYPE of job */}
+          <FormGroup>
+            {/* <FormLabel>Type of Job</FormLabel> */}
+            <FormControl name="type" type="text" placeholder="Type of Job" onChange={this.handleChange}/>
+          </FormGroup>
+         
+          {/* SITE CONTACT */}
+          <FormGroup>
+            {/* <FormLabel>Site Contact</FormLabel> */}
+            <FormControl name="siteContact" type="text" placeholder="Site Contact" onChange={this.handleChange}/>
+          </FormGroup>
+         
+          {/* TRAILER */}
+          <FormGroup>
+            {/* <FormLabel>City</FormLabel> */}
+            <FormControl name="trailer" type="text" placeholder="Trailer" onChange={this.handleChange}/>
+          </FormGroup>
+         
+          {/* PRICE */}
+          <FormGroup>
+            {/* <FormLabel>Price</FormLabel> */}
+            <FormControl name="price" type="number" placeholder="Price" onChange={this.handleChange}/>
           </FormGroup>
          
          {/* SUBMIT button */}
           <FormGroup>
-            <Col smOffset={2} sm={10}>
-              <Button value='Submit' type='submit' onClick={this.handleSubmit} >Submit</Button>
+            <Col sm={10}>
+              <Button value='Submit' type='submit' onClick={this.handleSubmit} >Add New Job</Button>
             </Col>
           </FormGroup>
 
@@ -129,4 +139,4 @@ class CreateJob extends React.Component {
     );
   }
 }
-export default CreatePost;
+export default CreateJob;

@@ -21,7 +21,7 @@ class Dashboard extends React.Component {
     console.log("Getting number of JOBS...")
     axios.get(`http://localhost:4000/api/v1/jobs`)
       .then(res=> {
-        console.log('data',res.data);
+        // console.log('data',res.data);
         this.setState({
           info:res.data
         }, () => {
