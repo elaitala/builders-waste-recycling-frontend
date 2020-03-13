@@ -21,7 +21,7 @@ class Job extends React.Component {
       jobName: this.props.job.jobName,
       client: this.props.job.client,
       location: this.props.job.location,
-      address: this.props.job.location,
+      address: this.props.job.address,
       city: this.props.job.city,
       type: this.props.job.type,
       siteContact: this.props.job.siteContact,
@@ -103,7 +103,7 @@ class Job extends React.Component {
         console.log(res.data)
         this.setState({jobData: res.data})
         this.setState({ editing: false })
-        this.handleClose();
+        // this.handleClose();
         // Refreshes AXIOS JOB DATA on create
         this.props.getJobs();
         console.log('Updated state:', this.state)
@@ -162,11 +162,11 @@ class Job extends React.Component {
                   <p>Dropped: {new Date(this.props.job.createdAt).toUTCString().slice(5, 16)}</p>
                 </div>
                 <hr />
-                <div class="row">
-                  <div class="col">
+                <div className="row">
+                  <div className="col">
                     <button id="pickupreturn" type="pickup-return-button" className="btn btn-success mt-1 btn-block" onClick={this.handlePickupReturn}>Pickup Return</button>
                   </div>
-                  <div class="col">
+                  <div className="col">
                     <button id="pickuponly" type="pickup-only-button" className="btn btn-danger mt-1 btn-block" onClick={this.handlePickupOnly}>Pickup Only</button>
                   </div>
                 </div>

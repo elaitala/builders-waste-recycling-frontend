@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
     return (
       <>
         <div>
-          <Table className="col-sm-8" striped border hover responsive="sm" variant="dark">
+          <Table className="col-sm-8" striped hover responsive="sm" variant="dark">
             <thead>
               <tr>
                 <th>Trailer</th>

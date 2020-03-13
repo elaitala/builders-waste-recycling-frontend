@@ -73,7 +73,7 @@ class App extends React.Component {
           <Navbar.Brand href="#home">
             <img
               alt=""
-              src="./logo.svg"
+              src="https://i.imgur.com/b7Y9TMm.png"
               width="30"
               height="30"
               className="d-inline-block align-top"

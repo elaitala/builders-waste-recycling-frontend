@@ -30,7 +30,7 @@ class JobList extends React.Component {
       <>
         <h4>Trailer List</h4>
         <div className="jobContainer pre-scrollable col-sm-8">
-          <Table className="trailer" striped border hover responsive="sm" variant="dark" ml="10px">
+          <Table className="trailer" striped hover responsive="sm" variant="dark" ml="10px">
             <thead>
               <tr>
                 <th>Builder</th>
