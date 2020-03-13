@@ -12,16 +12,8 @@ import {  Button,
 class CreateJob extends React.Component {
   state = {
     
-    // jobData: {},
-    jobName: '',
-    client: '',
-    location: '',
-    address: '',
-    city: '',
-    type: '',
-    siteContact: '',
-    trailer: '',
-    price: '',
+    jobData: this.props.jobData,
+    
     editing: false,
   }
   
@@ -45,23 +37,18 @@ class CreateJob extends React.Component {
         console.log(res)
         console.log(res.data)
         this.props.handleClose();
+        // Refreshes AXIOS JOB DATA on create
         this.props.getJobs();
-        // Trying to refresh page
         console.log('Updated state:', this.state)
-        // Jenky way of RELOAD
-        // window.location.reload()
-        // REACT way of RELOAD
-        this.setState({
-
-          editing: true
-        })
+        
       })
       .catch(err => {
         console.log(err.response)
         console.log('JOB CREATE Fail...')
       });
   };
-    render() {
+   
+  render() {
     console.log('Rendering ADD NEW JOB');
     return (
       <>

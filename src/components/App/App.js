@@ -25,25 +25,27 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    // const PORTDB = process.env.PORTDB;
-    // console.log("Getting number of JOBS...")
     this.getJobs()
   }
 
+  // componentDidUpdate = (prevProps) => {
+  //   if(prevProps.jobData !== this.props.jobData){
+  //     console.log('reRENDERING Joblist...')
+  //     this.getJobs();
+  //   }
+  // }
+
+  // AXIOS call to get all JOBS
   getJobs = () => {
     axios.get(`http://localhost:4000/api/v1/jobs`)
     .then(res=> {
       // console.log('data',res.data);
       this.setState({
         jobData: res.data
-      }, () => {
-        // this.trailerCount()
-        console.log('data', this.state.jobData)
       })
-      
     })
     .catch( err =>
-      console.log(err)
+      console.log(err.response)
     )
   }
 
@@ -82,7 +84,7 @@ class App extends React.Component {
 
         {/* Create JOB button */}
         <div className="create-job col mb-1">
-          <button id="createjobbtn" type="create-job-button" className="btn btn-success mt-1 btn-block" onClick={this.handleShow}>New Job</button>
+          <button id="createjobbtn" type="create-job-button" className="btn btn-success mt-1 btn-block" onClick={this.handleShow}>+ New Job</button>
         </div>
         
         {/* DASHBOARD */}
@@ -93,8 +95,7 @@ class App extends React.Component {
 
         {/* TRAILER list */}
         <div className="job-list">
-          { this.state.jobData && <JobList jobData={this.state.jobData} /> }
-
+          { this.state.jobData && <JobList getJobs={this.getJobs} jobData={this.state.jobData} /> }
 
           <Modal show={this.state.createjobshow} onHide={this.handleClose}>
             <Modal.Header closeButton>

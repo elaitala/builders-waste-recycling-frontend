@@ -19,36 +19,24 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount = () => {
-
-  //   // const PORTDB = process.env.PORTDB;
-  //   // console.log("Getting number of JOBS...")
-  //   axios.get(`http://localhost:4000/api/v1/jobs`)
-  //     .then(res=> {
-  //       // console.log('data',res.data);
-        // this.setState({
-          
-        // }, () => {
-          this.trailerCount()
-        // })
-        
-  //     })
-  //     .catch( err =>
-  //       console.log(err)
-  //     )
+    // Counts TRAILER types on mount
+    this.trailerCount()
   }
 
   componentDidUpdate = (prevProps) => {
+    // IF job data differs from previous state then it re-renders
     if(prevProps.jobData !== this.props.jobData){
+      console.log('reRENDERING Dashboard...')
       this.trailerCount();
     }
   }
 
   // Counts TRAILERS of each kind in the field
   trailerCount = () => {
-    console.log('TrailerCount data', this.props.jobData);
+    console.log('TrailerCount...');
     // let data = this.state.info
     let data = this.props.jobData;
-    console.log('DATA', data)
+    // console.log('DATA', data)
     let trailerTen = 0;
     let trailerFifteen = 0;
     for (let i=0; i<data.length; i++){
