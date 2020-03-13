@@ -28,13 +28,6 @@ class App extends React.Component {
     this.getJobs()
   }
 
-  // componentDidUpdate = (prevProps) => {
-  //   if(prevProps.jobData !== this.props.jobData){
-  //     console.log('reRENDERING Joblist...')
-  //     this.getJobs();
-  //   }
-  // }
-
   // AXIOS call to get all JOBS
   getJobs = () => {
     axios.get(`http://localhost:4000/api/v1/jobs`)
@@ -58,6 +51,7 @@ class App extends React.Component {
     this.setState({ createjobshow: false });
   }
 
+  // Handle OPEN and CLOSE of JOB DETAIL
   handleJobShow() {
     this.setState({ jobdetailshow: true });
   }
